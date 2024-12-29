@@ -16,9 +16,9 @@ node {
         }
 
         stage('Deploy docker'){
-            echo "Docker Image Tag Name: ${dockerImageTag}"
-            sh "docker stop springboot-deploy || true && docker rm springboot-deploy || true"
-            sh "docker run --name springboot-deploy -d -p 8081:8080 springboot-deploy:${env.BUILD_NUMBER}"
+            bat "docker stop springboot-deploy 2>nul || ver>nul"
+            bat "docker rm springboot-deploy 2>nul || ver>nul"
+            bat "docker run --name springboot-deploy -d -p 8081:8080 springboot-deploy:${env.BUILD_NUMBER}"
         }
 
 
