@@ -1,0 +1,20 @@
+node {
+
+    def WORKSPACE = "/var/lib/jenkins/workspace/springboot-deploy"
+    def dockerImageTag = "springboot-deploy${env.BUILD_NUMBER}"
+
+    try {
+
+        stage('Clone repo') {
+            git url: '',
+            credentialsId: 'springdeploy-user',
+            branch: 'main'
+        }
+
+    } catch(e) {
+
+        throw e
+
+    }
+
+}
