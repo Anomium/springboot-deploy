@@ -6,10 +6,21 @@ node {
     try {
 
         stage('Clone repo') {
-            git url: '',
+            git url: 'https://github.com/Anomium/springboot-deploy.git',
             credentialsId: 'springdeploy-user',
             branch: 'main'
         }
+
+        stage('Build docker') {
+            dockerImage = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
+        }
+
+        stage('Deploy docker'){
+            echo "Docker Image Tag Name: ${dockerImageTag}"
+            sh "docker stop springboot-deploy || true && docker rm springboot-deploy || true"
+            sh "docker run --name springboot-deploy -d -p 8081:8080 springboot-deploy:${env.BUILD_NUMBER}"
+        }
+
 
     } catch(e) {
 
