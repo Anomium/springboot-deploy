@@ -1,12 +1,12 @@
-# Docker Build Stage
-FROM maven:3-jdk-8-alpine AS build
-# Build Stage
+FROM gradle:8.5-jdk21 AS build
+
 WORKDIR /opt/app
-COPY ./ /opt/app
-RUN gradle clean install -DskipTests
-# Docker Build Stage
-FROM openjdk:8-jdk-alpine
-COPY --from=build /opt/app/target/*.jar app.jar
+COPY . .
+RUN gradle clean build -x test
+
+FROM eclipse-temurin:21-jdk-alpine
+WORKDIR /opt/app
+COPY --from=build /opt/app/build/libs/*.jar app.jar
 ENV PORT 8081
 EXPOSE $PORT
-ENTRYPOINT ["java","-jar","-Xmx1024M","-Dserver.port=${PORT}","app.jar"]
+ENTRYPOINT ["java", "-jar", "-Xmx1024M", "-Dserver.port=${PORT}", "app.jar"]
