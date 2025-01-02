@@ -14,13 +14,21 @@ node {
         stage('Build docker') {
             dockerImage = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
         }
-
+/*
         stage('Deploy docker'){
             bat "docker stop springboot-deploy 2>nul || ver>nul"
             bat "docker rm springboot-deploy 2>nul || ver>nul"
             bat "docker run --name springboot-deploy -d -p 8081:8080 springboot-deploy:${env.BUILD_NUMBER}"
         }
+*/
 
+        stage('Deploying App to Kubernetes') {
+            steps {
+                script {
+                    kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubernetes")
+                }
+            }
+        }
 
     } catch(e) {
 
