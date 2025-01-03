@@ -23,9 +23,7 @@ node {
 */
 
         stage('Deploying App to Kubernetes') {
-            script {
-                kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubernetes")
-            }
+            bat 'kubectl apply -f k8s-deployment.yaml'
         }
 
     } catch(e) {
