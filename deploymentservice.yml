@@ -15,8 +15,8 @@ spec:
         app: springboot-deploy
     spec:
       containers:
-      - name: springboot-container
-        image: springboot-deploy:34
+      - name: springboot-deploy
+        image: springboot-deploy:30
         ports:
         - containerPort: 8080
 ---
