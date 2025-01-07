@@ -23,7 +23,7 @@ node {
 */
 
         stage('Deploying App to Kubernetes') {
-            bat 'kubectl apply -f deploymentservice.yml --validate=false'
+            bat 'kubectl apply -f deploymentservice.yml
         }
 
     } catch(e) {
