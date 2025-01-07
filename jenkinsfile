@@ -22,15 +22,8 @@ node {
         }
 */
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                script {
-                    kubernetesDeploy(
-                        configs: 'deploymentservice.yml',
-                        kubeconfigId: 'kubeconfig-local'
-                    )
-                }
-            }
+        stage('Deploying App to Kubernetes') {
+            bat "kubectl apply -f deploymentservice.yml"
         }
 
     } catch(e) {
