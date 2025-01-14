@@ -23,7 +23,7 @@ node {
 */
 
         stage('Deploying App to Kubernetes') {
-            bat "kubectl apply -f deploymentservice.yml --context=docker-desktop"
+            bat "kubectl get nodes"
         }
 
     } catch(e) {
