@@ -23,7 +23,7 @@ node {
 */
 
         stage('Deploying App to Kubernetes') {
-            bat "kubectl get nodes"
+            bat "kubectl apply -f deploymentservice.yml --kubeconfig=C:\Users\Melvin\.kube\config"
         }
 
     } catch(e) {
